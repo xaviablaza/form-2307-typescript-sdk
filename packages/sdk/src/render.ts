@@ -13,14 +13,27 @@ function drawBoxText(page: PDFPage, font: PDFFont, value: string, field: FieldLa
   page.drawText(value, { x, y, size, font, color: rgb(0, 0, 0), maxWidth: field.width - padding * 2 });
 }
 
-function drawTin(page: PDFPage, font: PDFFont, tin: string, field: FieldLayout): void {
-  const digits = normalizeTin(tin);
+function drawSegmentedDigits(page: PDFPage, font: PDFFont, value: string, field: FieldLayout): void {
+  const digits = value.replace(/\D/g, "");
+  const { segments = [], ...baseField } = field;
   let offset = 0;
-  for (const segment of field.segments ?? []) {
-    const value = digits.slice(offset, offset + segment.digits);
-    drawBoxText(page, font, value, { ...field, x: segment.x, width: segment.width, align: "center" });
+  for (const segment of segments) {
+    const segmentValue = digits.slice(offset, offset + segment.digits);
+    const cellWidth = segment.width / segment.digits;
+    for (const [index, digit] of [...segmentValue].entries()) {
+      drawBoxText(page, font, digit, {
+        ...baseField,
+        x: segment.x + cellWidth * index,
+        width: cellWidth,
+        align: "center"
+      });
+    }
     offset += segment.digits;
   }
+}
+
+function drawTin(page: PDFPage, font: PDFFont, tin: string, field: FieldLayout): void {
+  drawSegmentedDigits(page, font, normalizeTin(tin), field);
 }
 
 function drawTable(page: PDFPage, font: PDFFont, rows: WithholdingRow[], table: TableLayout): void {
@@ -59,10 +72,10 @@ export async function renderForm2307(input: Form2307Input, officialTemplateBytes
   if (width !== 612 || height !== 936) throw new Error(`Unexpected template size: ${width}x${height}.`);
   const font = await pdf.embedFont(StandardFonts.Helvetica);
   const fields = form2307Layout.fields;
-  drawBoxText(page, font, input.period.from, fields["period.from"]!); drawBoxText(page, font, input.period.to, fields["period.to"]!);
-  drawTin(page, font, input.payee.tin, fields["payee.tin"]!); drawBoxText(page, font, input.payee.name, fields["payee.name"]!); drawBoxText(page, font, input.payee.registeredAddress, fields["payee.registeredAddress"]!); drawBoxText(page, font, input.payee.zipCode, fields["payee.zipCode"]!);
+  drawSegmentedDigits(page, font, input.period.from, fields["period.from"]!); drawSegmentedDigits(page, font, input.period.to, fields["period.to"]!);
+  drawTin(page, font, input.payee.tin, fields["payee.tin"]!); drawBoxText(page, font, input.payee.name, fields["payee.name"]!); drawBoxText(page, font, input.payee.registeredAddress, fields["payee.registeredAddress"]!); drawSegmentedDigits(page, font, input.payee.zipCode, fields["payee.zipCode"]!);
   if (input.payee.foreignAddress) drawBoxText(page, font, input.payee.foreignAddress, fields["payee.foreignAddress"]!);
-  drawTin(page, font, input.payor.tin, fields["payor.tin"]!); drawBoxText(page, font, input.payor.name, fields["payor.name"]!); drawBoxText(page, font, input.payor.registeredAddress, fields["payor.registeredAddress"]!); drawBoxText(page, font, input.payor.zipCode, fields["payor.zipCode"]!);
+  drawTin(page, font, input.payor.tin, fields["payor.tin"]!); drawBoxText(page, font, input.payor.name, fields["payor.name"]!); drawBoxText(page, font, input.payor.registeredAddress, fields["payor.registeredAddress"]!); drawSegmentedDigits(page, font, input.payor.zipCode, fields["payor.zipCode"]!);
   const cert = input.certification;
   for (const party of ["payor", "payee"] as const) {
     const values = cert?.[party]; if (!values) continue;

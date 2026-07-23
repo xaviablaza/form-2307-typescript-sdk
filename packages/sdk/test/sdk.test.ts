@@ -14,6 +14,9 @@ describe("Form 2307 domain", () => {
     expect(form2307Layout.page).toEqual({ number: 1, width: 612, height: 936 });
     expect(form2307Layout.templateSha256).toBe("eca9476c5f6346939b973e693d35d635f6dd82519b87092c717c21965b0b90f9");
     expect(form2307Layout.tables.expandedWithholding?.rowCount).toBe(10);
+    expect(form2307Layout.fields["period.from"]?.segments?.map(({ digits }) => digits)).toEqual([2, 2, 4]);
+    expect(form2307Layout.fields["payee.tin"]?.segments?.map(({ digits }) => digits)).toEqual([3, 3, 3, 5]);
+    expect(form2307Layout.fields["payee.zipCode"]?.segments?.map(({ digits }) => digits)).toEqual([1, 1, 1, 1]);
   });
   it("normalizes TINs and performs money arithmetic without floating point", () => {
     expect(normalizeTin("123-456-789-00000")).toBe("12345678900000");
