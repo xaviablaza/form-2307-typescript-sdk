@@ -1,0 +1,35 @@
+{
+  "$schema": "./form-2307.layout.schema.json",
+  "form": "2307",
+  "version": "2018-01-ENCS-v3",
+  "sourceUrl": "https://bir-cdn.bir.gov.ph/local/pdf/2307%20Jan%202018%20ENCS%20v3.pdf",
+  "templateSha256": "eca9476c5f6346939b973e693d35d635f6dd82519b87092c717c21965b0b90f9",
+  "coordinateSystem": {"origin": "top-left", "unit": "pdf-point"},
+  "page": {"number": 1, "width": 612, "height": 936},
+  "fields": {
+    "period.from": {"x": 151.5, "y": 106, "width": 105, "height": 16, "kind": "date", "fontSize": 8, "align": "center"},
+    "period.to": {"x": 399, "y": 106, "width": 105, "height": 16, "kind": "date", "fontSize": 8, "align": "center"},
+    "payee.tin": {"x": 207, "y": 137, "width": 228, "height": 15.5, "kind": "tin", "fontSize": 8, "segments": [{"x":207,"width":39.5,"digits":3},{"x":258.5,"width":39,"digits":3},{"x":310,"width":39,"digits":3},{"x":361.5,"width":73.5,"digits":5}]},
+    "payee.name": {"x": 33.5, "y": 164, "width": 558.5, "height": 16, "kind": "text", "fontSize": 8},
+    "payee.registeredAddress": {"x": 34.5, "y": 192.5, "width": 501.5, "height": 16, "kind": "text", "fontSize": 7.5},
+    "payee.zipCode": {"x": 541.5, "y": 192.5, "width": 50, "height": 16, "kind": "text", "fontSize": 8, "align": "center"},
+    "payee.foreignAddress": {"x": 34.5, "y": 221, "width": 556.5, "height": 16, "kind": "text", "fontSize": 7.5},
+    "payor.tin": {"x": 208, "y": 252, "width": 228, "height": 16.5, "kind": "tin", "fontSize": 8, "segments": [{"x":208,"width":39.5,"digits":3},{"x":259.5,"width":39,"digits":3},{"x":310.5,"width":39.5,"digits":3},{"x":362,"width":74,"digits":5}]},
+    "payor.name": {"x": 33.5, "y": 279, "width": 558.5, "height": 16, "kind": "text", "fontSize": 8},
+    "payor.registeredAddress": {"x": 34.5, "y": 307.5, "width": 501.5, "height": 16, "kind": "text", "fontSize": 7.5},
+    "payor.zipCode": {"x": 541.5, "y": 307.5, "width": 50, "height": 16, "kind": "text", "fontSize": 8, "align": "center"},
+    "certification.payor.signatureName": {"x": 17.5, "y": 722.5, "width": 580, "height": 27.5, "kind": "text", "fontSize": 8, "align": "center"},
+    "certification.payor.accreditationNo": {"x": 135, "y": 771, "width": 122.5, "height": 16, "kind": "text", "fontSize": 7},
+    "certification.payor.issueDate": {"x": 317, "y": 771, "width": 104.5, "height": 16, "kind": "date", "fontSize": 7, "align": "center"},
+    "certification.payor.expiryDate": {"x": 487, "y": 771, "width": 105.5, "height": 16, "kind": "date", "fontSize": 7, "align": "center"},
+    "certification.payee.signatureName": {"x": 17.5, "y": 800, "width": 580, "height": 27.5, "kind": "text", "fontSize": 8, "align": "center"},
+    "certification.payee.accreditationNo": {"x": 135, "y": 848.5, "width": 122.5, "height": 16, "kind": "text", "fontSize": 7},
+    "certification.payee.issueDate": {"x": 317, "y": 848.5, "width": 105, "height": 16, "kind": "date", "fontSize": 7, "align": "center"},
+    "certification.payee.expiryDate": {"x": 487, "y": 848.5, "width": 105.5, "height": 16, "kind": "date", "fontSize": 7, "align": "center"}
+  },
+  "tables": {
+    "expandedWithholding": {"rowCount": 10, "firstRowY": 365, "rowHeight": 13.7, "totalY": 502, "columns": {"description":{"x":17.5,"width":159},"atc":{"x":177,"width":42.5},"month1":{"x":220.5,"width":71},"month2":{"x":292.5,"width":73.5},"month3":{"x":367,"width":70.5},"total":{"x":439,"width":70.5},"taxWithheld":{"x":511,"width":86.5}}},
+    "businessTaxWithholding": {"rowCount": 10, "firstRowY": 534.5, "rowHeight": 13.65, "totalY": 671, "columns": {"description":{"x":17.5,"width":159},"atc":{"x":177,"width":42.5},"month1":{"x":220.5,"width":71},"month2":{"x":292.5,"width":73.5},"month3":{"x":367,"width":70.5},"total":{"x":439,"width":70.5},"taxWithheld":{"x":511,"width":86.5}}}
+  },
+  "calibration": {"rasterDpi": 144, "pointsPerPixel": 0.5, "method": "Poppler raster plus detected table rules and visual review", "status": "prototype-calibrated; require golden-image approval before production"}
+}

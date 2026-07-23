@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["form", "version", "sourceUrl", "templateSha256", "coordinateSystem", "page", "fields", "tables", "calibration"],
+  "properties": {
+    "form": {"const": "2307"},
+    "version": {"type": "string"},
+    "sourceUrl": {"type": "string", "format": "uri"},
+    "templateSha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "page": {"type": "object", "required": ["number", "width", "height"]},
+    "fields": {"type": "object", "additionalProperties": {"type": "object", "required": ["x", "y", "width", "height", "kind", "fontSize"]}},
+    "tables": {"type": "object"},
+    "calibration": {"type": "object"}
+  },
+  "additionalProperties": true
+}
